@@ -1,0 +1,15 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
+}
+
+model User {
+  id                    String                  @id
+  followingUsers        User[]                  @relation("followingUsers")
+  followedByUsers       User[]                  @relation("followingUsers", fields: [id], references: [id])
+}
